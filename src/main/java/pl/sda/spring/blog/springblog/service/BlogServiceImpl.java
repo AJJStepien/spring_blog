@@ -20,7 +20,7 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public boolean addUser(User user) {
-        if (userRepository.findFirstByEmail(user.getEmail()) != null) {
+        if (userRepository.findFirstByEmail(user.getEmail()) == null) {
             userRepository.save(user);
             return true;
         }
