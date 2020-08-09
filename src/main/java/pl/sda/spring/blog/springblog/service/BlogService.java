@@ -1,5 +1,7 @@
 package pl.sda.spring.blog.springblog.service;
 
+import pl.sda.spring.blog.springblog.model.Cathegory;
+import pl.sda.spring.blog.springblog.model.Post;
 import pl.sda.spring.blog.springblog.model.User;
 
 import java.util.List;
@@ -13,5 +15,6 @@ public interface BlogService {
     boolean updatePassword(long userId, String password);
     List<User> getAllUsersOrderByRegDateDesc();
     Optional<User> getUserById(long userId);
-
+    Post addPostByUser(long userId,String title, String content, Cathegory cathegory);
+    List<Post> getAllPostOrderByDateDesc();
 }

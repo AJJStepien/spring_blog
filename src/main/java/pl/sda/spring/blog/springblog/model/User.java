@@ -32,7 +32,7 @@ public class User {
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-//        this.regDateTime = LocalDateTime.now();
+        this.regDateTime = LocalDateTime.now();
         this.status = true;
     }
 }

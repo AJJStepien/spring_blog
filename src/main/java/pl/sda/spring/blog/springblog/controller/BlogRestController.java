@@ -2,6 +2,8 @@ package pl.sda.spring.blog.springblog.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import pl.sda.spring.blog.springblog.model.Cathegory;
+import pl.sda.spring.blog.springblog.model.Post;
 import pl.sda.spring.blog.springblog.model.User;
 import pl.sda.spring.blog.springblog.service.BlogService;
 
@@ -58,5 +60,16 @@ public class BlogRestController {
     public boolean updatePassword(@PathVariable long userId,
                                   @RequestParam("password") String password){
         return blogService.updatePassword(userId, password);
+    }
+    @PostMapping("/newPost")
+    public Post createNewPost(@RequestParam("userID") long userId,
+                              @RequestParam("title") String title,
+                              @RequestParam("content") String content,
+                              @RequestParam("Cathegory") Cathegory cathegory){
+        return blogService.addPostByUser(userId, title, content, cathegory);
+    }
+    @PostMapping("/posts")
+    public List<Post> getAllPosts(){
+        return blogService.getAllPostOrderByDateDesc();
     }
 }

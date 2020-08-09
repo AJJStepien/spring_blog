@@ -1,21 +1,28 @@
 package pl.sda.spring.blog.springblog.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import pl.sda.spring.blog.springblog.model.Cathegory;
+import pl.sda.spring.blog.springblog.model.Post;
 import pl.sda.spring.blog.springblog.model.User;
+import pl.sda.spring.blog.springblog.repository.PostRepository;
 import pl.sda.spring.blog.springblog.repository.UserRepository;
 
 import javax.transaction.Transactional;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class BlogServiceImpl implements BlogService {
     private UserRepository userRepository;
+    private PostRepository postRepository;
 
     @Autowired
-    public BlogServiceImpl(UserRepository userRepository) {
+    public BlogServiceImpl(UserRepository userRepository, PostRepository postRepository) {
         this.userRepository = userRepository;
+        this.postRepository = postRepository;
     }
 
     @Override
@@ -55,5 +62,19 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public Optional<User> getUserById(long userId) {
         return userRepository.findById(userId);
+    }
+
+    @Override
+    public Post addPostByUser(long userId, String title, String content, Cathegory cathegory) {
+        if (userRepository.existsById(userId)) {
+            User author = userRepository.findById(userId).get();
+            return postRepository.save(new Post(title, content, cathegory, author));
+        }
+        return null;
+    }
+
+    @Override
+    public List<Post> getAllPostOrderByDateDesc() {
+        return postRepository.findAll(Sort.by(Sort.Direction.DESC, "dateTimeAdded"));
     }
 }
