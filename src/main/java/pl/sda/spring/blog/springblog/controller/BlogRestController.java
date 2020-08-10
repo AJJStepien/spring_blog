@@ -13,15 +13,20 @@ import java.util.List;
 //@Controller     //kontroler komunikujący się z warstwą front-endu
 public class BlogRestController {
     private BlogService blogService;
+    private BlogController blogController;
 
     @Autowired
     public BlogRestController(BlogService blogService) {
         this.blogService = blogService;
     }
+    @Autowired
+    public void setBlogController(BlogController blogController) {
+        this.blogController = blogController;
+    }
 
     @GetMapping("/hello")
     public String hello() {
-        return "hello";
+        return blogController.home();
     }
 
     @GetMapping("/hello/{me}")
