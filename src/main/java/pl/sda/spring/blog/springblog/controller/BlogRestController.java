@@ -9,8 +9,10 @@ import pl.sda.spring.blog.springblog.service.BlogService;
 
 import java.util.List;
 
+
 @RestController       //kontroler generujacy wyniki w postaci rest api
 //@Controller     //kontroler komunikujący się z warstwą front-endu
+@RequestMapping("/rest/")
 public class BlogRestController {
     private BlogService blogService;
 
