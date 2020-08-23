@@ -1,6 +1,6 @@
 package pl.sda.spring.blog.springblog.service;
 
-import pl.sda.spring.blog.springblog.model.Cathegory;
+import pl.sda.spring.blog.springblog.model.Category;
 import pl.sda.spring.blog.springblog.model.Post;
 import pl.sda.spring.blog.springblog.model.User;
 
@@ -15,6 +15,8 @@ public interface BlogService {
     boolean updatePassword(long userId, String password);
     List<User> getAllUsersOrderByRegDateDesc();
     Optional<User> getUserById(long userId);
-    Post addPostByUser(long userId,String title, String content, Cathegory cathegory);
+    Post addPostByUser(long userId,String title, String content, Category cathegory);
     List<Post> getAllPostOrderByDateDesc();
+    Optional<Post> getPostById(long postId);
+    User addRoleToUser(User user, String roleName);
 }

@@ -3,14 +3,15 @@ package pl.sda.spring.blog.springblog.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import pl.sda.spring.blog.springblog.model.Cathegory;
+import pl.sda.spring.blog.springblog.model.Category;
 import pl.sda.spring.blog.springblog.model.Post;
+import pl.sda.spring.blog.springblog.model.Role;
 import pl.sda.spring.blog.springblog.model.User;
 import pl.sda.spring.blog.springblog.repository.PostRepository;
+import pl.sda.spring.blog.springblog.repository.RoleRepository;
 import pl.sda.spring.blog.springblog.repository.UserRepository;
 
 import javax.transaction.Transactional;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,11 +19,13 @@ import java.util.Optional;
 public class BlogServiceImpl implements BlogService {
     private UserRepository userRepository;
     private PostRepository postRepository;
+    private RoleRepository roleRepository;
 
     @Autowired
-    public BlogServiceImpl(UserRepository userRepository, PostRepository postRepository) {
+    public BlogServiceImpl(UserRepository userRepository, PostRepository postRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.postRepository = postRepository;
+        this.roleRepository = roleRepository;
     }
 
     @Override
@@ -32,6 +35,11 @@ public class BlogServiceImpl implements BlogService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public Optional<Post> getPostById(long postId) {
+        return postRepository.findById(postId);
     }
 
     @Override
@@ -65,7 +73,7 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public Post addPostByUser(long userId, String title, String content, Cathegory cathegory) {
+    public Post addPostByUser(long userId, String title, String content, Category cathegory) {
         if (userRepository.existsById(userId)) {
             User author = userRepository.findById(userId).get();
             return postRepository.save(new Post(title, content, cathegory, author));
@@ -76,5 +84,11 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public List<Post> getAllPostOrderByDateDesc() {
         return postRepository.findAll(Sort.by(Sort.Direction.DESC, "dateTimeAdded"));
+    }
+
+    @Override
+    public User addRoleToUser(User user, String roleName) {
+        Role role =  roleRepository.findFirstByRoleName(roleName);
+        return user;
     }
 }

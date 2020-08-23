@@ -35,60 +35,39 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
-        <div th:each="post : ${posts}" class="post-preview">
-          <a th:href="@{'/posts&' + ${post.postId}}">
-            <h2 th:text="${post.title}" class="post-title">Post title</h2>
-            <h3 th:text="${post.cathegory.getName()}" class="post-subtitle">Post category</h3>
-          </a>
-          <p th:text="'published ' + ${#temporals.format(post.dateTimeAdded, 'dd-MM-yyyy HH:mm')} + ' by ' + ${post.author.name} +' '+ ${post.author.lastName}" class="post-meta">
-            Posted by author published date</p>
-        </div>
-        <!-- Pager -->
-<!--        <div class="clearfix">-->
-<!--          <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>-->
-<!--        </div>-->
-      </div>
-    </div>
-  </div>
-
-  <hr>
-
-
-
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
-        <h1>Dodaj nowego posta</h1>
-        <!--<form th:action="@{/url_gdzie_przekazujemy_obiekt post"
-                  th:method="metoda_jaką przekazujemy_obiekt post"
-                  th:object="${nazwa_obiektu -> post}">-->
-        <form th:action="@{/addPost}" th:method="POST" th:object="${newPost}">
+        <p th:if
+        <form th:action="@{/addUser}" th:method="POST">
           <div class="control-group">
             <div class="form-group floating-label-form-group controls">
-              <input th:field="*{title}" class="form-control" type="text" placeholder="insert title here"><br/>
-              <p th:errors="*{title}" class="help-block text-danger"></p>
+          <input th:text name="name" class="form-control"placeholder="Imię">
             </div>
           </div>
           <div class="control-group">
             <div class="form-group floating-label-form-group controls">
-              <textarea th:field="*{content}" class="form-control" placeholder="insert content here"></textarea><br/>
-              <p th:errors="*{content}" class="help-block text-danger"></p>
+          <input th:text name="lastname" class="form-control"placeholder="Nazwisko">
             </div>
           </div>
           <div class="control-group">
             <div class="form-group floating-label-form-group controls">
-              <select th:field="*{cathegory}" class="form-control">
-                <option th:each="c : ${cats}" th:value="${c}" th:text="${c.getName()}"></option>
-              </select><br/>
+          <input th:email name="email" class="form-control"placeholder="example@domain.com">
             </div>
           </div>
-          <button type="submit" class="btn btn-primary"> add post </button>
+          <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+          <input th:password name="password" class="form-control" placeholder="Hasło">
+            </div>
+          </div>
+          <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+          <button type="submit" class="btn btn-primary" name="submit">Zarejestruj</button>
+            </div>
+          </div>
         </form>
       </div>
     </div>
   </div>
 
-
+  <hr>
   <!-- Footer -->
   <footer>
     <div class="container">

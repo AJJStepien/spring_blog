@@ -2,7 +2,7 @@ package pl.sda.spring.blog.springblog.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import pl.sda.spring.blog.springblog.model.Cathegory;
+import pl.sda.spring.blog.springblog.model.Category;
 import pl.sda.spring.blog.springblog.model.Post;
 import pl.sda.spring.blog.springblog.model.User;
 import pl.sda.spring.blog.springblog.service.BlogService;
@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController       //kontroler generujacy wyniki w postaci rest api
 //@Controller     //kontroler komunikujący się z warstwą front-endu
-@RequestMapping("/rest/")
+@RequestMapping(value = "/rest/")
 public class BlogRestController {
     private BlogService blogService;
 
@@ -67,7 +67,7 @@ public class BlogRestController {
     public Post createNewPost(@RequestParam("userID") long userId,
                               @RequestParam("title") String title,
                               @RequestParam("content") String content,
-                              @RequestParam("Cathegory") Cathegory cathegory){
+                              @RequestParam("Cathegory") Category cathegory){
         return blogService.addPostByUser(userId, title, content, cathegory);
     }
     @PostMapping("/posts")
